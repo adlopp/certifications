@@ -4,12 +4,12 @@ const I18N = {
     siteTitle: "🤖 Certificaciones de IA",
     heroSubtitle: "Un registro visual de mis certificaciones en Inteligencia Artificial.",
     searchPlaceholder: "Buscar certificaciones...",
-    filterAll: "Todas",
+    sortNewest: "Más recientes",
+    sortOldest: "Más antiguas",
     emptyState: "No se encontraron certificaciones.",
     footerText: "Hecho con vanilla HTML, CSS y JS.",
     statTotal: "Certificaciones",
     statIssuers: "Emisores",
-    statCategories: "Categorías",
     credentialId: "ID de credencial",
     issuedOn: "Emitido",
     verifyLink: "Ver credencial"
@@ -19,12 +19,12 @@ const I18N = {
     siteTitle: "🤖 AI Certifications",
     heroSubtitle: "A visual record of my Artificial Intelligence certifications.",
     searchPlaceholder: "Search certifications...",
-    filterAll: "All",
+    sortNewest: "Newest first",
+    sortOldest: "Oldest first",
     emptyState: "No certifications found.",
     footerText: "Made with vanilla HTML, CSS and JS.",
     statTotal: "Certifications",
     statIssuers: "Issuers",
-    statCategories: "Categories",
     credentialId: "Credential ID",
     issuedOn: "Issued",
     verifyLink: "View credential"
@@ -32,8 +32,8 @@ const I18N = {
 };
 
 let currentLang = localStorage.getItem("lang") || "es";
-let currentFilter = "all";
 let currentSearch = "";
+let sortOrder = "desc";
 
 function t(key) {
   return I18N[currentLang][key] || key;
@@ -47,8 +47,18 @@ function applyI18n() {
   document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
     el.placeholder = t(el.dataset.i18nPlaceholder);
   });
-  const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
-  if (allBtn) allBtn.textContent = t("filterAll");
+  updateSortButton();
+}
+
+function updateSortButton() {
+  document.getElementById("sortIcon").textContent = sortOrder === "desc" ? "↓" : "↑";
+  document.getElementById("sortLabel").textContent = sortOrder === "desc" ? t("sortNewest") : t("sortOldest");
+}
+
+function toggleSortOrder() {
+  sortOrder = sortOrder === "desc" ? "asc" : "desc";
+  updateSortButton();
+  renderCards();
 }
 
 function formatDate(dateStr) {
@@ -79,63 +89,28 @@ function toggleLang() {
   localStorage.setItem("lang", currentLang);
   applyI18n();
   renderStats();
-  renderFilters();
   renderCards();
-}
-
-function buildCategories() {
-  const set = new Set(CERTIFICATIONS.map(c => c.category).filter(Boolean));
-  return Array.from(set).sort();
 }
 
 function renderStats() {
   const issuers = new Set(CERTIFICATIONS.map(c => c.issuer));
-  const categories = buildCategories();
   const statsEl = document.getElementById("stats");
   statsEl.innerHTML = `
     <div class="stat"><div class="value">${CERTIFICATIONS.length}</div><div class="label">${t("statTotal")}</div></div>
     <div class="stat"><div class="value">${issuers.size}</div><div class="label">${t("statIssuers")}</div></div>
-    <div class="stat"><div class="value">${categories.length}</div><div class="label">${t("statCategories")}</div></div>
   `;
-}
-
-function renderFilters() {
-  const container = document.getElementById("filters");
-  const categories = buildCategories();
-  container.innerHTML = "";
-
-  const allBtn = document.createElement("button");
-  allBtn.className = "filter-btn" + (currentFilter === "all" ? " active" : "");
-  allBtn.dataset.filter = "all";
-  allBtn.textContent = t("filterAll");
-  container.appendChild(allBtn);
-
-  categories.forEach(cat => {
-    const btn = document.createElement("button");
-    btn.className = "filter-btn" + (currentFilter === cat ? " active" : "");
-    btn.dataset.filter = cat;
-    btn.textContent = cat;
-    container.appendChild(btn);
-  });
-
-  container.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      currentFilter = btn.dataset.filter;
-      renderFilters();
-      renderCards();
-    });
-  });
 }
 
 function getFilteredCertifications() {
   const query = currentSearch.trim().toLowerCase();
-  return CERTIFICATIONS.filter(c => {
-    const matchesFilter = currentFilter === "all" || c.category === currentFilter;
-    const matchesSearch = !query ||
+  const filtered = CERTIFICATIONS.filter(c => {
+    return !query ||
       c.title.toLowerCase().includes(query) ||
-      c.issuer.toLowerCase().includes(query) ||
-      (c.category || "").toLowerCase().includes(query);
-    return matchesFilter && matchesSearch;
+      c.issuer.toLowerCase().includes(query);
+  });
+  return filtered.sort((a, b) => {
+    const diff = new Date(a.date) - new Date(b.date);
+    return sortOrder === "desc" ? -diff : diff;
   });
 }
 
@@ -165,7 +140,6 @@ function renderCards() {
     card.dataset.id = cert.id;
     card.innerHTML = `
       ${cardImageHtml(cert)}
-      <span class="card-category">${cert.category || ""}</span>
       <h3>${cert.title}</h3>
       <div class="issuer">${cert.issuer}</div>
       <div class="date">${formatDate(cert.date)}</div>
@@ -195,7 +169,6 @@ function openModal(cert) {
   const body = document.getElementById("modalBody");
   body.innerHTML = `
     ${cardImageHtml(cert)}
-    <span class="card-category">${cert.category || ""}</span>
     <h2>${cert.title}</h2>
     <div class="issuer">${cert.issuer}</div>
     ${cert.description ? `<p>${cert.description}</p>` : ""}
@@ -243,6 +216,7 @@ function renderSearchSuggestions() {
 function initEvents() {
   document.getElementById("themeToggle").addEventListener("click", toggleTheme);
   document.getElementById("langToggle").addEventListener("click", toggleLang);
+  document.getElementById("sortToggle").addEventListener("click", toggleSortOrder);
   document.getElementById("modalClose").addEventListener("click", closeModal);
   document.getElementById("modalOverlay").addEventListener("click", e => {
     if (e.target.id === "modalOverlay") closeModal();
@@ -268,7 +242,6 @@ function init() {
   initTheme();
   applyI18n();
   renderStats();
-  renderFilters();
   renderCards();
   initEvents();
 }

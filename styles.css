@@ -127,10 +127,26 @@ body {
   padding: 0 24px;
 }
 
+.controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
 .search-wrap {
   position: relative;
+  width: 100%;
   max-width: 420px;
-  margin: 0 auto 20px;
+}
+
+.sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
 }
 
 #searchInput {
@@ -172,35 +188,6 @@ body {
 
 .search-suggestions div:last-child { border-bottom: none; }
 .search-suggestions div:hover { background: var(--bg); }
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
-.filter-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  padding: 8px 16px;
-  border-radius: 999px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  transition: all 0.2s;
-}
-
-.filter-btn:hover {
-  border-color: var(--accent);
-  color: var(--text);
-}
-
-.filter-btn.active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
 
 /* Cards grid */
 .cards-grid {
@@ -248,18 +235,6 @@ body {
   justify-content: center;
   font-size: 2.2rem;
   color: var(--text-muted);
-}
-
-.card-category {
-  align-self: flex-start;
-  background: var(--bg);
-  color: var(--accent);
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
 }
 
 .card h3 {

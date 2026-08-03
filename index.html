@@ -24,12 +24,14 @@
   </section>
 
   <section class="controls">
-    <div class="search-wrap">
-      <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Buscar certificaciones...">
-      <div id="searchSuggestions" class="search-suggestions hidden"></div>
-    </div>
-    <div class="filters" id="filters">
-      <button class="filter-btn active" data-filter="all" data-i18n="filterAll">Todas</button>
+    <div class="controls-row">
+      <div class="search-wrap">
+        <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Buscar certificaciones...">
+        <div id="searchSuggestions" class="search-suggestions hidden"></div>
+      </div>
+      <button id="sortToggle" class="icon-btn sort-btn" aria-label="Ordenar por fecha">
+        <span id="sortIcon">↓</span> <span id="sortLabel" data-i18n="sortNewest">Más recientes</span>
+      </button>
     </div>
   </section>
 
