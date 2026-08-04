@@ -39,6 +39,13 @@ function t(key) {
   return I18N[currentLang][key] || key;
 }
 
+function localized(field) {
+  if (field && typeof field === "object") {
+    return field[currentLang] || field.es || field.en || "";
+  }
+  return field || "";
+}
+
 function applyI18n() {
   document.documentElement.lang = currentLang;
   document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -105,7 +112,7 @@ function getFilteredCertifications() {
   const query = currentSearch.trim().toLowerCase();
   const filtered = CERTIFICATIONS.filter(c => {
     return !query ||
-      c.title.toLowerCase().includes(query) ||
+      localized(c.title).toLowerCase().includes(query) ||
       c.issuer.toLowerCase().includes(query);
   });
   return filtered.sort((a, b) => {
@@ -116,7 +123,7 @@ function getFilteredCertifications() {
 
 function cardImageHtml(cert) {
   if (cert.image) {
-    return `<img class="card-image" src="${cert.image}" alt="${cert.title}">`;
+    return `<img class="card-image" src="${cert.image}" alt="${localized(cert.title)}">`;
   }
   return `<div class="card-image">🏅</div>`;
 }
@@ -140,7 +147,7 @@ function renderCards() {
     card.dataset.id = cert.id;
     card.innerHTML = `
       ${cardImageHtml(cert)}
-      <h3>${cert.title}</h3>
+      <h3>${localized(cert.title)}</h3>
       <div class="issuer">${cert.issuer}</div>
       <div class="date">${formatDate(cert.date)}</div>
     `;
@@ -167,11 +174,12 @@ function observeCards() {
 function openModal(cert) {
   const overlay = document.getElementById("modalOverlay");
   const body = document.getElementById("modalBody");
+  const description = localized(cert.description);
   body.innerHTML = `
     ${cardImageHtml(cert)}
-    <h2>${cert.title}</h2>
+    <h2>${localized(cert.title)}</h2>
     <div class="issuer">${cert.issuer}</div>
-    ${cert.description ? `<p>${cert.description}</p>` : ""}
+    ${description ? `<p>${description}</p>` : ""}
     <div class="meta-row"><span>${t("issuedOn")}</span><span>${formatDate(cert.date)}</span></div>
     ${cert.credentialId ? `<div class="meta-row"><span>${t("credentialId")}</span><span>${cert.credentialId}</span></div>` : ""}
     ${cert.credentialUrl ? `<a class="verify-link" href="${cert.credentialUrl}" target="_blank" rel="noopener noreferrer">${t("verifyLink")}</a>` : ""}
@@ -192,7 +200,7 @@ function renderSearchSuggestions() {
     return;
   }
   const matches = CERTIFICATIONS.filter(c =>
-    c.title.toLowerCase().includes(query) || c.issuer.toLowerCase().includes(query)
+    localized(c.title).toLowerCase().includes(query) || c.issuer.toLowerCase().includes(query)
   ).slice(0, 6);
 
   if (matches.length === 0) {
@@ -201,7 +209,7 @@ function renderSearchSuggestions() {
     return;
   }
 
-  container.innerHTML = matches.map(c => `<div data-id="${c.id}">${c.title} — <em>${c.issuer}</em></div>`).join("");
+  container.innerHTML = matches.map(c => `<div data-id="${c.id}">${localized(c.title)} — <em>${c.issuer}</em></div>`).join("");
   container.classList.remove("hidden");
 
   container.querySelectorAll("div").forEach(el => {

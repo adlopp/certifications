@@ -13,6 +13,8 @@ Web estática (vanilla HTML/CSS/JS, sin build tools ni dependencias) para mostra
 
 Editar el array `CERTIFICATIONS` en `certifications.js`. Campos: `id`, `title`, `issuer`, `date` (`YYYY-MM-DD`), `credentialId`, `credentialUrl`, `image`, `description`.
 
+`title` y `description` son bilingües: `{ es: "...", en: "..." }`. Para el nombre del curso, si es un nombre propio sin traducción oficial en inglés (ej. "Claude 101", "C# avanzado 1") se repite igual en ambos idiomas; si tiene una traducción natural (ej. "Java esencial" → "Java Essentials") se traduce. `description` siempre se traduce, ya que es texto propio.
+
 No hay sistema de categorías/filtros — de momento todas las certificaciones son de IA, así que no aporta valor filtrar por tema. Si en el futuro se diversifican mucho los temas, se podría reintroducir.
 
 **Flujo cuando el usuario pasa solo una URL de verificación** (ej. un link de Skilljar/Credly/etc.):
