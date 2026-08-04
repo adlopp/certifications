@@ -1,7 +1,7 @@
 const I18N = {
   es: {
     pageTitle: "Certificaciones",
-    siteTitle: "🤖 Certificaciones",
+    siteTitle: "Certificaciones",
     heroSubtitle: "Un registro visual de mis certificaciones.",
     searchPlaceholder: "Buscar certificaciones...",
     sortNewest: "Más recientes",
@@ -18,7 +18,7 @@ const I18N = {
   },
   en: {
     pageTitle: "Certifications",
-    siteTitle: "🤖 Certifications",
+    siteTitle: "Certifications",
     heroSubtitle: "A visual record of my certifications.",
     searchPlaceholder: "Search certifications...",
     sortNewest: "Newest first",

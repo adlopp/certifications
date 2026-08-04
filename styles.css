@@ -147,6 +147,11 @@ body {
   align-items: center;
   gap: 6px;
   white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sort-btn span {
+  white-space: nowrap;
 }
 
 #searchInput {
@@ -194,6 +199,13 @@ body {
   position: relative;
 }
 
+#issuerDropdown {
+  left: 0;
+  right: auto;
+  width: max-content;
+  min-width: 100%;
+}
+
 .search-suggestions {
   position: absolute;
   top: calc(100% + 6px);
@@ -213,6 +225,7 @@ body {
   cursor: pointer;
   font-size: 0.9rem;
   border-bottom: 1px solid var(--border);
+  white-space: nowrap;
 }
 
 .search-suggestions div:last-child { border-bottom: none; }
