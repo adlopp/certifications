@@ -41,6 +41,19 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "claude-platform-101",
+    title: { es: "Claude Platform 101", en: "Claude Platform 101" },
+    issuer: "Anthropic Education",
+    date: "2026-08-04",
+    credentialId: "q3p5pr9om79p",
+    credentialUrl: "https://verify.skilljar.com/c/q3p5pr9om79p",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso de Anthropic sobre cómo construir aplicaciones con la Claude Platform.",
+      en: "Anthropic's course on building applications with the Claude Platform."
+    }
+  },
+  {
     id: "claude-code-in-action",
     title: { es: "Claude Code en acción", en: "Claude Code in Action" },
     issuer: "Anthropic Education",
