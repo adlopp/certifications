@@ -27,15 +27,26 @@
     <div class="controls-row">
       <div class="search-wrap">
         <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Buscar certificaciones...">
+        <button id="searchClear" type="button" class="search-clear hidden" aria-label="Borrar búsqueda">&times;</button>
         <div id="searchSuggestions" class="search-suggestions hidden"></div>
       </div>
       <button id="sortToggle" class="icon-btn sort-btn" aria-label="Ordenar por fecha">
         <span id="sortIcon">↓</span> <span id="sortLabel" data-i18n="sortNewest">Más recientes</span>
       </button>
+      <div class="issuer-filter-wrap">
+        <button id="issuerToggle" class="icon-btn sort-btn" aria-label="Filtrar por emisor">
+          <span id="issuerLabel" data-i18n="issuerAll">Todos los emisores</span> <span>▾</span>
+        </button>
+        <div id="issuerDropdown" class="search-suggestions hidden"></div>
+      </div>
     </div>
   </section>
 
   <section class="cards-grid" id="cardsGrid"></section>
+
+  <div class="load-more-wrap">
+    <button id="loadMoreBtn" type="button" class="icon-btn load-more-btn hidden" data-i18n="loadMore">Cargar más</button>
+  </div>
 
   <p id="emptyState" class="empty-state hidden" data-i18n="emptyState">No se encontraron certificaciones.</p>
 </main>

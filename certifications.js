@@ -29,7 +29,7 @@ const CERTIFICATIONS = [
   },
   {
     id: "claude-cowork-intro",
-    title: { es: "Introduction to Claude Cowork", en: "Introduction to Claude Cowork" },
+    title: { es: "Introducción a Claude Cowork", en: "Introduction to Claude Cowork" },
     issuer: "Anthropic Education",
     date: "2026-08-04",
     credentialId: "mnjrqrdcjvab",
@@ -42,7 +42,7 @@ const CERTIFICATIONS = [
   },
   {
     id: "claude-code-in-action",
-    title: { es: "Claude Code in Action", en: "Claude Code in Action" },
+    title: { es: "Claude Code en acción", en: "Claude Code in Action" },
     issuer: "Anthropic Education",
     date: "2026-08-04",
     credentialId: "pek4jran2q7x",

@@ -6,6 +6,8 @@ const I18N = {
     searchPlaceholder: "Buscar certificaciones...",
     sortNewest: "Más recientes",
     sortOldest: "Más antiguas",
+    loadMore: "Cargar más",
+    issuerAll: "Todos los emisores",
     emptyState: "No se encontraron certificaciones.",
     footerText: "Hecho con vanilla HTML, CSS y JS.",
     statTotal: "Certificaciones",
@@ -21,6 +23,8 @@ const I18N = {
     searchPlaceholder: "Search certifications...",
     sortNewest: "Newest first",
     sortOldest: "Oldest first",
+    loadMore: "Load more",
+    issuerAll: "All issuers",
     emptyState: "No certifications found.",
     footerText: "Made with vanilla HTML, CSS and JS.",
     statTotal: "Certifications",
@@ -31,9 +35,14 @@ const I18N = {
   }
 };
 
+const INITIAL_VISIBLE = 9;
+const LOAD_MORE_STEP = 3;
+
 let currentLang = localStorage.getItem("lang") || "es";
 let currentSearch = "";
 let sortOrder = "desc";
+let visibleCount = INITIAL_VISIBLE;
+let issuerFilter = "all";
 
 function t(key) {
   return I18N[currentLang][key] || key;
@@ -55,6 +64,9 @@ function applyI18n() {
     el.placeholder = t(el.dataset.i18nPlaceholder);
   });
   updateSortButton();
+  if (issuerFilter === "all") {
+    document.getElementById("issuerLabel").textContent = t("issuerAll");
+  }
 }
 
 function updateSortButton() {
@@ -64,6 +76,7 @@ function updateSortButton() {
 
 function toggleSortOrder() {
   sortOrder = sortOrder === "desc" ? "asc" : "desc";
+  visibleCount = INITIAL_VISIBLE;
   updateSortButton();
   renderCards();
 }
@@ -96,6 +109,7 @@ function toggleLang() {
   localStorage.setItem("lang", currentLang);
   applyI18n();
   renderStats();
+  renderIssuerDropdown();
   renderCards();
 }
 
@@ -111,14 +125,39 @@ function renderStats() {
 function getFilteredCertifications() {
   const query = currentSearch.trim().toLowerCase();
   const filtered = CERTIFICATIONS.filter(c => {
-    return !query ||
+    const matchesIssuer = issuerFilter === "all" || c.issuer === issuerFilter;
+    const matchesQuery = !query ||
       localized(c.title).toLowerCase().includes(query) ||
       c.issuer.toLowerCase().includes(query);
+    return matchesIssuer && matchesQuery;
   });
   return filtered.sort((a, b) => {
     const diff = new Date(a.date) - new Date(b.date);
     return sortOrder === "desc" ? -diff : diff;
   });
+}
+
+function renderIssuerDropdown() {
+  const container = document.getElementById("issuerDropdown");
+  const issuers = Array.from(new Set(CERTIFICATIONS.map(c => c.issuer))).sort();
+
+  const allItem = `<div data-issuer="all">${t("issuerAll")}</div>`;
+  const items = issuers.map(name => `<div data-issuer="${name}">${name}</div>`).join("");
+  container.innerHTML = allItem + items;
+
+  container.querySelectorAll("div").forEach(el => {
+    el.addEventListener("click", () => {
+      issuerFilter = el.dataset.issuer;
+      document.getElementById("issuerLabel").textContent = issuerFilter === "all" ? t("issuerAll") : issuerFilter;
+      container.classList.add("hidden");
+      visibleCount = INITIAL_VISIBLE;
+      renderCards();
+    });
+  });
+}
+
+function toggleIssuerDropdown() {
+  document.getElementById("issuerDropdown").classList.toggle("hidden");
 }
 
 function cardImageHtml(cert) {
@@ -128,33 +167,53 @@ function cardImageHtml(cert) {
   return `<div class="card-image">🏅</div>`;
 }
 
+function buildCard(cert) {
+  const card = document.createElement("article");
+  card.className = "card";
+  card.dataset.id = cert.id;
+  card.innerHTML = `
+    ${cardImageHtml(cert)}
+    <h3>${localized(cert.title)}</h3>
+    <div class="issuer">${cert.issuer}</div>
+    <div class="date">${formatDate(cert.date)}</div>
+  `;
+  card.addEventListener("click", () => openModal(cert));
+  return card;
+}
+
 function renderCards() {
   const grid = document.getElementById("cardsGrid");
   const emptyState = document.getElementById("emptyState");
-  const list = getFilteredCertifications();
+  const loadMoreBtn = document.getElementById("loadMoreBtn");
+  const fullList = getFilteredCertifications();
+  const list = fullList.slice(0, visibleCount);
 
   grid.innerHTML = "";
 
-  if (list.length === 0) {
+  if (fullList.length === 0) {
     emptyState.classList.remove("hidden");
   } else {
     emptyState.classList.add("hidden");
   }
 
-  list.forEach(cert => {
-    const card = document.createElement("article");
-    card.className = "card";
-    card.dataset.id = cert.id;
-    card.innerHTML = `
-      ${cardImageHtml(cert)}
-      <h3>${localized(cert.title)}</h3>
-      <div class="issuer">${cert.issuer}</div>
-      <div class="date">${formatDate(cert.date)}</div>
-    `;
-    card.addEventListener("click", () => openModal(cert));
-    grid.appendChild(card);
-  });
+  loadMoreBtn.classList.toggle("hidden", visibleCount >= fullList.length);
 
+  list.forEach(cert => grid.appendChild(buildCard(cert)));
+
+  observeCards();
+}
+
+function loadMore() {
+  const grid = document.getElementById("cardsGrid");
+  const loadMoreBtn = document.getElementById("loadMoreBtn");
+  const fullList = getFilteredCertifications();
+  const previousCount = visibleCount;
+  visibleCount += LOAD_MORE_STEP;
+
+  const newCerts = fullList.slice(previousCount, visibleCount);
+  newCerts.forEach(cert => grid.appendChild(buildCard(cert)));
+
+  loadMoreBtn.classList.toggle("hidden", visibleCount >= fullList.length);
   observeCards();
 }
 
@@ -215,16 +274,41 @@ function renderSearchSuggestions() {
   container.querySelectorAll("div").forEach(el => {
     el.addEventListener("click", () => {
       const cert = CERTIFICATIONS.find(c => c.id === el.dataset.id);
-      if (cert) openModal(cert);
+      if (cert) {
+        const searchInput = document.getElementById("searchInput");
+        searchInput.value = localized(cert.title);
+        currentSearch = searchInput.value;
+        visibleCount = INITIAL_VISIBLE;
+        updateSearchClearVisibility();
+        renderCards();
+      }
       container.classList.add("hidden");
     });
   });
+}
+
+function updateSearchClearVisibility() {
+  document.getElementById("searchClear").classList.toggle("hidden", currentSearch.trim() === "");
+}
+
+function clearSearch() {
+  const searchInput = document.getElementById("searchInput");
+  searchInput.value = "";
+  currentSearch = "";
+  visibleCount = INITIAL_VISIBLE;
+  updateSearchClearVisibility();
+  document.getElementById("searchSuggestions").classList.add("hidden");
+  renderCards();
+  searchInput.focus();
 }
 
 function initEvents() {
   document.getElementById("themeToggle").addEventListener("click", toggleTheme);
   document.getElementById("langToggle").addEventListener("click", toggleLang);
   document.getElementById("sortToggle").addEventListener("click", toggleSortOrder);
+  document.getElementById("loadMoreBtn").addEventListener("click", loadMore);
+  document.getElementById("issuerToggle").addEventListener("click", toggleIssuerDropdown);
+  document.getElementById("searchClear").addEventListener("click", clearSearch);
   document.getElementById("modalClose").addEventListener("click", closeModal);
   document.getElementById("modalOverlay").addEventListener("click", e => {
     if (e.target.id === "modalOverlay") closeModal();
@@ -236,12 +320,17 @@ function initEvents() {
   const searchInput = document.getElementById("searchInput");
   searchInput.addEventListener("input", e => {
     currentSearch = e.target.value;
+    visibleCount = INITIAL_VISIBLE;
+    updateSearchClearVisibility();
     renderCards();
     renderSearchSuggestions();
   });
   document.addEventListener("click", e => {
     if (!e.target.closest(".search-wrap")) {
       document.getElementById("searchSuggestions").classList.add("hidden");
+    }
+    if (!e.target.closest(".issuer-filter-wrap")) {
+      document.getElementById("issuerDropdown").classList.add("hidden");
     }
   });
 }
@@ -250,6 +339,7 @@ function init() {
   initTheme();
   applyI18n();
   renderStats();
+  renderIssuerDropdown();
   renderCards();
   initEvents();
 }
