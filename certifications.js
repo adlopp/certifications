@@ -28,6 +28,19 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "claude-cowork-intro",
+    title: { es: "Introduction to Claude Cowork", en: "Introduction to Claude Cowork" },
+    issuer: "Anthropic Education",
+    date: "2026-08-04",
+    credentialId: "mnjrqrdcjvab",
+    credentialUrl: "https://verify.skilljar.com/c/mnjrqrdcjvab",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso introductorio de Anthropic sobre Claude Cowork.",
+      en: "Anthropic's introductory course on Claude Cowork."
+    }
+  },
+  {
     id: "big-school-desarrollo-ia",
     title: {
       es: "Curso de Iniciación al Desarrollo con IA",
