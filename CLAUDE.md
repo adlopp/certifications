@@ -1,4 +1,4 @@
-# Certificaciones de IA
+# Certificaciones
 
 Web estática (vanilla HTML/CSS/JS, sin build tools ni dependencias) para mostrar mis certificaciones de Inteligencia Artificial. Estilo inspirado en [Wildpedia](https://github.com/adlopp/Wildpedia).
 
@@ -21,7 +21,7 @@ No hay sistema de categorías/filtros — de momento todas las certificaciones s
 3. `image`: para certificaciones de Anthropic/Claude, usar el logo oficial ya guardado en `assets/claude-logo.svg` (icono "sunburst" naranja, vectorial, descargado de `https://claude.ai/favicon.svg` — preferir SVG sobre PNG/JPG siempre que exista, para que no se vea borroso al escalar en las tarjetas) — no generar una imagen distinta por certificado. Para otras certificaciones (AWS, Google, etc.), buscar y descargar el logo del emisor de forma similar (SVG si está disponible, si no un PNG de la mayor resolución posible) y guardarlo en `assets/<emisor>-logo.svg`/`.png` para reutilizarlo entre todas sus certificaciones. Si no hay logo disponible, dejar `image` vacío (se muestra un icono 🏅 por defecto).
 4. No hace falta pedir confirmación de cada campo: si el fetch trae título, emisor, fecha, credential ID y link, es suficiente para crear la entrada directamente.
 
-Certificaciones ya cargadas como referencia de formato: "Claude 101" y "Claude Code 101" (Anthropic Education, ambas usan `assets/claude-logo.svg`).
+Certificaciones ya cargadas como referencia de formato: "Claude 101" y "Claude Code 101" (Anthropic Education, ambas usan `assets/claude-logo.svg`). Certificaciones de LinkedIn Learning (ej. "Azure: Introducción a la nube de Microsoft") usan `assets/linkedin-learning-logo.svg` (icono "in" blanco sobre azul `#0A66C2`, extraído del propio `linkedin.com/learning`) — sus URLs de verificación (`linkedin.com/learning/certificates/<hash>`) no requieren login para verse con `WebFetch`.
 
 **Flujo cuando el usuario sube un PDF de certificado de completado a `assets/`:**
 1. PyMuPDF (`fitz`) está instalado en el Python del sistema por si hace falta renderizar un PDF a imagen (poppler, ImageMagick no están disponibles en esta máquina). No usarlo para generar la imagen de la tarjeta si el emisor ya tiene logo en `assets/` (ver punto 3 anterior) — solo sirve para extraer datos (nombre, curso) si no vinieran ya claros, o si se decide mostrar el certificado en sí en vez del logo del emisor.

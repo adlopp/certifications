@@ -1,8 +1,8 @@
 const I18N = {
   es: {
-    pageTitle: "Certificaciones de IA",
-    siteTitle: "🤖 Certificaciones de IA",
-    heroSubtitle: "Un registro visual de mis certificaciones en Inteligencia Artificial.",
+    pageTitle: "Certificaciones",
+    siteTitle: "🤖 Certificaciones",
+    heroSubtitle: "Un registro visual de mis certificaciones.",
     searchPlaceholder: "Buscar certificaciones...",
     sortNewest: "Más recientes",
     sortOldest: "Más antiguas",
@@ -15,9 +15,9 @@ const I18N = {
     verifyLink: "Ver credencial"
   },
   en: {
-    pageTitle: "AI Certifications",
-    siteTitle: "🤖 AI Certifications",
-    heroSubtitle: "A visual record of my Artificial Intelligence certifications.",
+    pageTitle: "Certifications",
+    siteTitle: "🤖 Certifications",
+    heroSubtitle: "A visual record of my certifications.",
     searchPlaceholder: "Search certifications...",
     sortNewest: "Newest first",
     sortOldest: "Oldest first",
