@@ -41,6 +41,19 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "claude-code-in-action",
+    title: { es: "Claude Code in Action", en: "Claude Code in Action" },
+    issuer: "Anthropic Education",
+    date: "2026-08-04",
+    credentialId: "pek4jran2q7x",
+    credentialUrl: "https://verify.skilljar.com/c/pek4jran2q7x",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso de Anthropic sobre el uso práctico de Claude Code.",
+      en: "Anthropic's course on the practical use of Claude Code."
+    }
+  },
+  {
     id: "big-school-desarrollo-ia",
     title: {
       es: "Curso de Iniciación al Desarrollo con IA",
