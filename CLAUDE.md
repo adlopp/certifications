@@ -13,7 +13,11 @@ Web estática (vanilla HTML/CSS/JS, sin build tools ni dependencias) para mostra
 
 Editar el array `CERTIFICATIONS` en `certifications.js`. Campos: `id`, `title`, `issuer`, `date` (`YYYY-MM-DD`), `credentialId`, `credentialUrl`, `image`, `description`.
 
-`title` y `description` son bilingües: `{ es: "...", en: "..." }`. Para el nombre del curso, si es un nombre propio sin traducción oficial en inglés (ej. "Claude 101", "C# avanzado 1") se repite igual en ambos idiomas; si tiene una traducción natural (ej. "Java esencial" → "Java Essentials") se traduce. `description` siempre se traduce, ya que es texto propio.
+`title` y `description` son bilingües: `{ es: "...", en: "..." }`. Para el nombre del curso, distinguir entre:
+- **Nombre de producto** (ej. "Claude", "Claude Code", "Claude Cowork", "Claude Platform" + número de versión tipo "101"): no se traduce, se repite igual en `es`/`en` (ej. "Claude 101", "C# avanzado 1").
+- **Frase descriptiva sin marca** (ej. "AI Fluency", "Framework & Foundations", "Java esencial", "in Action"): sí se traduce (ej. "AI Fluency" → "Fluidez en IA", "Java esencial" → "Java Essentials", "in Action" → "en acción"), aunque vaya pegada a un nombre de producto en el mismo título (ej. "Claude Code in Action" → título en español "Claude Code en acción": se traduce "in Action" pero no "Claude Code").
+
+`description` siempre se traduce, ya que es texto propio.
 
 **Importante:** el campo `es` de `title`/`description` debe estar siempre en español y el campo `en` siempre en inglés, sin importar en qué idioma esté el nombre original del curso (ej. un curso llamado "Claude Code in Action" puede mantener ese mismo título en el campo `title.en`, pero su `description.es` tiene que estar en español igualmente). No dejar texto en el idioma equivocado dentro de cada campo.
 

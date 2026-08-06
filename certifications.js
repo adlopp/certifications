@@ -56,7 +56,7 @@ const CERTIFICATIONS = [
   {
     id: "ai-fluency-framework-foundations",
     title: {
-      es: "AI Fluency: Marco y Fundamentos",
+      es: "Fluidez en IA: Marco y Fundamentos",
       en: "AI Fluency: Framework & Foundations"
     },
     issuer: "Anthropic Education",
