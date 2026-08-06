@@ -54,6 +54,22 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "ai-fluency-framework-foundations",
+    title: {
+      es: "AI Fluency: Marco y Fundamentos",
+      en: "AI Fluency: Framework & Foundations"
+    },
+    issuer: "Anthropic Education",
+    date: "2026-08-06",
+    credentialId: "wejcyjy8xfqn",
+    credentialUrl: "https://verify.skilljar.com/c/wejcyjy8xfqn",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso de Anthropic sobre los fundamentos y el marco de trabajo para el uso fluido de la IA.",
+      en: "Anthropic's course on the framework and foundations for AI fluency."
+    }
+  },
+  {
     id: "claude-code-in-action",
     title: { es: "Claude Code en acción", en: "Claude Code in Action" },
     issuer: "Anthropic Education",
