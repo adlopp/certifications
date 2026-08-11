@@ -83,6 +83,22 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "claude-api-building",
+    title: {
+      es: "Construyendo con la API de Claude",
+      en: "Building with the Claude API"
+    },
+    issuer: "Anthropic Education",
+    date: "2026-08-11",
+    credentialId: "9mpfhrav4bbe",
+    credentialUrl: "https://verify.skilljar.com/c/9mpfhrav4bbe",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso de Anthropic sobre cómo construir con la API de Claude.",
+      en: "Anthropic's course on building with the Claude API."
+    }
+  },
+  {
     id: "big-school-desarrollo-ia",
     title: {
       es: "Curso de Iniciación al Desarrollo con IA",
