@@ -303,12 +303,27 @@ function clearSearch() {
 }
 
 let easterEggAudioTimeout = null;
+let easterEggAudioUnlocked = false;
+
+function unlockEasterEggAudio() {
+  if (easterEggAudioUnlocked) return;
+  easterEggAudioUnlocked = true;
+  const audio = document.getElementById("easterEggAudio");
+  audio.muted = true;
+  audio.play().then(() => {
+    audio.pause();
+    audio.currentTime = 0;
+    audio.muted = false;
+  }).catch(() => {
+    audio.muted = false;
+  });
+}
 
 function openEasterEgg() {
   document.getElementById("easterEggOverlay").classList.remove("hidden");
   const audio = document.getElementById("easterEggAudio");
   audio.currentTime = 0;
-  audio.play();
+  audio.play().catch(err => console.warn("No se pudo reproducir el audio del easter egg:", err));
   clearTimeout(easterEggAudioTimeout);
   easterEggAudioTimeout = setTimeout(() => {
     audio.pause();
@@ -380,6 +395,8 @@ function init() {
   renderIssuerDropdown();
   renderCards();
   initEvents();
+  document.addEventListener("pointerdown", unlockEasterEggAudio, { once: true });
+  document.addEventListener("keydown", unlockEasterEggAudio, { once: true });
 }
 
 document.addEventListener("DOMContentLoaded", init);
