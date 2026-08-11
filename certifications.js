@@ -99,6 +99,38 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "mcp-introduction",
+    title: {
+      es: "Introducción al Model Context Protocol",
+      en: "Introduction to Model Context Protocol"
+    },
+    issuer: "Anthropic Education",
+    date: "2026-08-11",
+    credentialId: "8odtdrtjc8gv",
+    credentialUrl: "https://verify.skilljar.com/c/8odtdrtjc8gv",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso de Anthropic sobre los fundamentos del Model Context Protocol.",
+      en: "Anthropic's course on the fundamentals of Model Context Protocol."
+    }
+  },
+  {
+    id: "generation-rpa",
+    title: {
+      es: "Automatización de Procesos, RPA",
+      en: "Process Automation, RPA"
+    },
+    issuer: "Fundación Generation España",
+    date: "2024-06-28",
+    credentialId: "",
+    credentialUrl: "assets/generation-rpa-cert.pdf",
+    image: "assets/generation-logo.png",
+    description: {
+      es: "Formación de 233 horas en automatización robótica de procesos (RPA): modelado BPMN, VB.NET y UiPath Developer I y II.",
+      en: "233-hour training in robotic process automation (RPA): BPMN modeling, VB.NET, and UiPath Developer I and II."
+    }
+  },
+  {
     id: "big-school-desarrollo-ia",
     title: {
       es: "Curso de Iniciación al Desarrollo con IA",

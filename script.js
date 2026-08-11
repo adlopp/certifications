@@ -303,6 +303,17 @@ function clearSearch() {
 }
 
 function initEvents() {
+  document.getElementById("logoHome").addEventListener("click", () => {
+    document.getElementById("searchInput").value = "";
+    currentSearch = "";
+    issuerFilter = "all";
+    document.getElementById("issuerLabel").textContent = t("issuerAll");
+    visibleCount = INITIAL_VISIBLE;
+    updateSearchClearVisibility();
+    document.getElementById("searchSuggestions").classList.add("hidden");
+    renderCards();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
   document.getElementById("themeToggle").addEventListener("click", toggleTheme);
   document.getElementById("langToggle").addEventListener("click", toggleLang);
   document.getElementById("sortToggle").addEventListener("click", toggleSortOrder);
