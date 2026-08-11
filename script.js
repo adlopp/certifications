@@ -335,6 +335,13 @@ function initEvents() {
     updateSearchClearVisibility();
     renderCards();
     renderSearchSuggestions();
+    if (currentSearch.trim().toLowerCase() === "eva guapa") {
+      document.getElementById("easterEggOverlay").classList.remove("hidden");
+    }
+  });
+
+  document.getElementById("easterEggOverlay").addEventListener("click", () => {
+    document.getElementById("easterEggOverlay").classList.add("hidden");
   });
   document.addEventListener("click", e => {
     if (!e.target.closest(".search-wrap")) {
