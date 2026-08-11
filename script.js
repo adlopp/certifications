@@ -302,6 +302,28 @@ function clearSearch() {
   searchInput.focus();
 }
 
+let easterEggAudioTimeout = null;
+
+function openEasterEgg() {
+  document.getElementById("easterEggOverlay").classList.remove("hidden");
+  const audio = document.getElementById("easterEggAudio");
+  audio.currentTime = 0;
+  audio.play();
+  clearTimeout(easterEggAudioTimeout);
+  easterEggAudioTimeout = setTimeout(() => {
+    audio.pause();
+    audio.currentTime = 0;
+  }, 5000);
+}
+
+function closeEasterEgg() {
+  document.getElementById("easterEggOverlay").classList.add("hidden");
+  clearTimeout(easterEggAudioTimeout);
+  const audio = document.getElementById("easterEggAudio");
+  audio.pause();
+  audio.currentTime = 0;
+}
+
 function initEvents() {
   document.getElementById("logoHome").addEventListener("click", () => {
     document.getElementById("searchInput").value = "";
@@ -336,13 +358,11 @@ function initEvents() {
     renderCards();
     renderSearchSuggestions();
     if (currentSearch.trim().toLowerCase() === "eva guapa") {
-      document.getElementById("easterEggOverlay").classList.remove("hidden");
+      openEasterEgg();
     }
   });
 
-  document.getElementById("easterEggOverlay").addEventListener("click", () => {
-    document.getElementById("easterEggOverlay").classList.add("hidden");
-  });
+  document.getElementById("easterEggOverlay").addEventListener("click", closeEasterEgg);
   document.addEventListener("click", e => {
     if (!e.target.closest(".search-wrap")) {
       document.getElementById("searchSuggestions").classList.add("hidden");
