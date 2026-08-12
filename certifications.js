@@ -147,6 +147,22 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "ai-fluency-students",
+    title: {
+      es: "Fluidez en IA para estudiantes",
+      en: "AI Fluency for students"
+    },
+    issuer: "Anthropic Education",
+    date: "2026-08-12",
+    credentialId: "h4yub3hixmdf",
+    credentialUrl: "https://verify.skilljar.com/c/h4yub3hixmdf",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso de Anthropic sobre fluidez en IA orientado a estudiantes.",
+      en: "Anthropic's course on AI fluency for students."
+    }
+  },
+  {
     id: "big-school-desarrollo-ia",
     title: {
       es: "Curso de Iniciación al Desarrollo con IA",
