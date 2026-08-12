@@ -163,6 +163,22 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "mcp-advanced-topics",
+    title: {
+      es: "Model Context Protocol: Temas avanzados",
+      en: "Model Context Protocol: Advanced Topics"
+    },
+    issuer: "Anthropic Education",
+    date: "2026-08-12",
+    credentialId: "otspk6e5atbx",
+    credentialUrl: "https://verify.skilljar.com/c/otspk6e5atbx",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso de Anthropic sobre temas avanzados del Model Context Protocol.",
+      en: "Anthropic's course on advanced topics of Model Context Protocol."
+    }
+  },
+  {
     id: "big-school-desarrollo-ia",
     title: {
       es: "Curso de Iniciación al Desarrollo con IA",
