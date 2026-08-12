@@ -399,4 +399,9 @@ function init() {
   document.addEventListener("keydown", unlockEasterEggAudio, { once: true });
 }
 
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+window.scrollTo(0, 0);
+
 document.addEventListener("DOMContentLoaded", init);
