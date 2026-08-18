@@ -243,6 +243,22 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "ai-capabilities-limitations",
+    title: {
+      es: "Capacidades y limitaciones de la IA",
+      en: "AI Capabilities and Limitations"
+    },
+    issuer: "Anthropic Education",
+    date: "2026-08-18",
+    credentialId: "x92dta3gx24b",
+    credentialUrl: "https://verify.skilljar.com/c/x92dta3gx24b",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso de Anthropic sobre las capacidades y limitaciones de la IA.",
+      en: "Anthropic's course on the capabilities and limitations of AI."
+    }
+  },
+  {
     id: "big-school-desarrollo-ia",
     title: {
       es: "Curso de Iniciación al Desarrollo con IA",
