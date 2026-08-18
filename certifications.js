@@ -227,6 +227,22 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "introduction-agent-skills",
+    title: {
+      es: "Introducción a Agent Skills",
+      en: "Introduction to Agent Skills"
+    },
+    issuer: "Anthropic Education",
+    date: "2026-08-18",
+    credentialId: "ey5gqzj8zsra",
+    credentialUrl: "https://verify.skilljar.com/c/ey5gqzj8zsra",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso introductorio de Anthropic sobre Agent Skills.",
+      en: "Anthropic's introductory course on Agent Skills."
+    }
+  },
+  {
     id: "big-school-desarrollo-ia",
     title: {
       es: "Curso de Iniciación al Desarrollo con IA",
