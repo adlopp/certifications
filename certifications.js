@@ -195,6 +195,22 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "teaching-ai-fluency",
+    title: {
+      es: "Enseñar Fluidez en IA",
+      en: "Teaching AI Fluency"
+    },
+    issuer: "Anthropic Education",
+    date: "2026-08-18",
+    credentialId: "kbyjewg67d68",
+    credentialUrl: "https://verify.skilljar.com/c/kbyjewg67d68",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso de Anthropic sobre cómo enseñar fluidez en IA.",
+      en: "Anthropic's course on teaching AI fluency."
+    }
+  },
+  {
     id: "big-school-desarrollo-ia",
     title: {
       es: "Curso de Iniciación al Desarrollo con IA",
