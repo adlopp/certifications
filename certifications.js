@@ -179,6 +179,22 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "claude-amazon-bedrock",
+    title: {
+      es: "Claude con Amazon Bedrock",
+      en: "Claude with Amazon Bedrock"
+    },
+    issuer: "Anthropic Education",
+    date: "2026-08-18",
+    credentialId: "zf5og5dfvbnk",
+    credentialUrl: "https://verify.skilljar.com/c/zf5og5dfvbnk",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso de Anthropic sobre el uso de Claude con Amazon Bedrock.",
+      en: "Anthropic's course on using Claude with Amazon Bedrock."
+    }
+  },
+  {
     id: "big-school-desarrollo-ia",
     title: {
       es: "Curso de Iniciación al Desarrollo con IA",
