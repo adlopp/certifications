@@ -211,6 +211,22 @@ const CERTIFICATIONS = [
     }
   },
   {
+    id: "ai-fluency-nonprofits",
+    title: {
+      es: "Fluidez en IA para organizaciones sin ánimo de lucro",
+      en: "AI Fluency for nonprofits"
+    },
+    issuer: "Anthropic Education",
+    date: "2026-08-18",
+    credentialId: "zmxtxscgduqz",
+    credentialUrl: "https://verify.skilljar.com/c/zmxtxscgduqz",
+    image: "assets/claude-logo.svg",
+    description: {
+      es: "Curso de Anthropic sobre fluidez en IA orientado a organizaciones sin ánimo de lucro.",
+      en: "Anthropic's course on AI fluency for nonprofits."
+    }
+  },
+  {
     id: "big-school-desarrollo-ia",
     title: {
       es: "Curso de Iniciación al Desarrollo con IA",
